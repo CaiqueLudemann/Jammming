@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './playlist.module.css';
 
 export function Playlist(){
-  console.dir(styles)
   return (
     <section>
       <h3>Playlist</h3>
