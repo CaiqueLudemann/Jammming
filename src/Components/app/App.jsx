@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {Search} from "../search/Search"; //inserir nome de música
 import {Results} from "../results/Results"; //ver resultados retornados pelo Spotify
 import {Playlist} from "../playlist/Playlist"; 
@@ -61,11 +61,10 @@ export function App(){
           setAccessToken(null);
         }
       })
-      .catch(error=>console.log(error))
+      .catch(error=>console.log("ERROR "+error))
       }
   }, [accessToken]); 
-  
-  console.log("App rendered")
+
   return (
     <>
     

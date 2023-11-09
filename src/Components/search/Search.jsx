@@ -1,11 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import styles from './search.module.css';
 
 export function Search(props){ 
   const baseUrl = 'https://api.spotify.com/v1';
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function searchTracksByArtist(artistName, token){
-    const query = `q=${encodeURIComponent(`artist:${artistName}`)}`;
+
+    if (artistName && token) {
+      const query = `q=${encodeURIComponent(`artist:${artistName}`)}`;
     const type = 'type=track';
 
     const searchUrl = `${baseUrl}/search?${query}&${type}`;
@@ -18,15 +21,22 @@ export function Search(props){
     });
 
     const data = await response.json();
-    
     return data;
+    }
   };
 
   //looks in spotify directory for artist by name
   async function fetchTracksByArtist(artistName) {
   try {
+    props.setResults([]);
     const searchResult = await searchTracksByArtist(artistName, props.data.token);
     const tracks = searchResult.tracks.items;
+
+    if (tracks.length === 0) {
+      setErrorMessage('Artist or band not found in directory.');
+    } else {
+      setErrorMessage('');
+    }
 
     // Process and display the tracks
     for (const track of tracks) {
@@ -35,6 +45,7 @@ export function Search(props){
         [...prevResults,
         trackName]
       )
+    
       // console.log(`Track Name: ${track.name}`);
       // console.log(`Artist: ${track.artists[0].name}`);
       // console.log(`Album: ${track.album.name}`);
@@ -55,14 +66,16 @@ export function Search(props){
 function handleChange(e){
   let name = e.target.value;
   props.setName(name);
+  console.log(name)
 }
-  console.log("Search rendered")
+
   return (
     <section>
       <h3>Search Artist</h3>
-      <input onChange={handleChange} placeholder='search artist name'/>
-      <aside>This message only shows when an artist is not found.</aside>
-      <input onClick={()=>fetchTracksByArtist(props.data.name)} type='submit' value={'Search song'}/>
+      
+      <input onChange={handleChange} placeholder='filter by band or artist'/>
+      {errorMessage && <aside>{errorMessage}</aside>}
+      <input onClick={()=>fetchTracksByArtist(props.data.name)} type='submit' value={'Search Directory'}/>
     </section>
   )
 };

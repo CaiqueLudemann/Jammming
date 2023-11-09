@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './playlist.module.css';
 
 export function Playlist(props){
@@ -7,7 +6,6 @@ export function Playlist(props){
   //   setIsClicked(prevIsClicked => !prevIsClicked)
   // }
 
-  console.log("Playlist rendered")
   return (
     <section>
       <h3>Playlist</h3>
