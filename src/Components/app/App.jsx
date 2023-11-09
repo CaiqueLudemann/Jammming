@@ -14,8 +14,8 @@ import styles from './app.module.css';
 
 export function App(){
 
-  const userId = '8c5551033f814d0f83bef8c654ea6e3a';
-  const userSecret = 'a855fdbe243d45748f877343f97a0705';
+  const userId = import.meta.env.VITE_SPOTIFY_USER_ID;
+  const userSecret = import.meta.env.VITE_SPOTIFY_USER_SECRET;
   
   const [accessToken, setAccessToken] = useState(null); // token de acesso.
   const [timer, setTimer] = useState(null); // tempo de validade do token.
