@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import {Search} from "../search/Search"; //inserir nome de música
 import {Results} from "../results/Results"; //ver resultados retornados pelo Spotify
 import {Playlist} from "../playlist/Playlist"; 
-import { Track } from "../track/Track"; //visualizar música individualmente & selecioná-la
+ //visualizar música individualmente & selecioná-la
 import styles from './app.module.css';
 
 
@@ -65,10 +65,11 @@ export function App(){
       }
   }, [accessToken]); 
 
+  console.log(accessToken)
   return (
-    <>
-    
-      <Search setName={setName} //gets artist's name
+    <div className={styles.app}>
+      <div>
+        <Search setName={setName} //gets artist's name
       setSelected={setSelected}
       setResults={setResults} //sets the search results
       data={{
@@ -79,10 +80,12 @@ export function App(){
         results: results,
         selected: selected,
       }}/>
-      <Results selected={selected} setSelected={setSelected} results={results} song={<Track/>}/>
+      <Results selected={selected} setSelected={setSelected} results={results}/>
+      </div>
+      
       <Playlist selected={selected}/>
     
-    </>
+    </div>
     
   )
 };

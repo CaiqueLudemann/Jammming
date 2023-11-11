@@ -70,7 +70,7 @@ function handleChange(e){
 }
 
   return (
-    <section>
+    <section className={styles.search}>
       <h3>Search Artist</h3>
       
       <input onChange={handleChange} placeholder='filter by band or artist'/>
