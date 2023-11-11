@@ -16,7 +16,7 @@ export function Playlist(props){
           </>
         ))}
       </div>
-      <aside>This will only show when submit button is clicked.</aside>
+      
       <form className={styles.playlistForm}>
         <label htmlFor="playlist-name">Playlist Name</label>
         <input id='playlist-name' type="text" />
