@@ -23,15 +23,16 @@ export function Search(props){
     const data = await response.json();
     return data;
     }
-  };
+  }
 
   //looks in spotify directory for artist by name
   async function fetchTracksByArtist(artistName) {
   try {
     props.setResults([]);
     const searchResult = await searchTracksByArtist(artistName, props.data.token);
-    const tracks = searchResult.tracks.items;
+    const tracks = searchResult?.tracks?.items;
 
+    if(!tracks) throw new Error('No tracks found.');
     if (tracks.length === 0) {
       setErrorMessage('Artist or band not found in directory.');
     } else {
@@ -78,4 +79,4 @@ function handleChange(e){
       <input onClick={()=>fetchTracksByArtist(props.data.name)} type='submit' value={'Search Directory'}/>
     </section>
   )
-};
+}
