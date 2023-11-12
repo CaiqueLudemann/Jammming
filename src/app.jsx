@@ -9,6 +9,7 @@ import { Welcome } from "./components/welcome/welcome";
 export function App() {
   const [allTracks, setAllTracks] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [playlistName, setPlaylistName] = useState('');
 
   useEffect(() => SpotifyAPI.authenticate(), []);
 
@@ -39,7 +40,8 @@ export function App() {
           customIcon="➖"
           onTrackClick={removeTrackFromPlaylist}
         />
-        <button>
+        <input onChange={(e)=>setPlaylistName(e.target.value)} type="text" value={playlistName} />
+        <button onClick={()=>SpotifyAPI.createPlaylist(playlistName, playlistTracks)}>
           Save Playlist
         </button>
       </div>

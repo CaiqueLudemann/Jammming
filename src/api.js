@@ -32,21 +32,41 @@ class SpotifyAPI {
     }));
   }
 
-  async createPlaylist(name) {
+  async createPlaylist(name, tracks) {
     if (!this.accessToken) await this.updateAccessToken();
     const response = await fetch(
       `${BASE_URLS.API}/users/${this.userInfo.id}/playlists`,
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${this.accessToken}`,
+          'Authorization': `Bearer ${this.accessToken}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ name })
       }
     );
     const data = await response.json();
-    return data.id;
+    // return data.id;
+    
+    async function addSongs(playlistId, trackUris, accessToken){
+      const tracksArray = trackUris.map(track=> {
+        return track.uri;
+      })
+      const response = await fetch(
+        `${BASE_URLS.API}/playlists/${playlistId}/tracks`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'uris': tracksArray
+          })
+        }
+      )
+    }
+    addSongs(data.id, tracks, this.accessToken)
   }
 
   // Authentication ------------------------------------------------------------
