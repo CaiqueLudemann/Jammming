@@ -40,7 +40,7 @@ export function App() {
           customIcon="➖"
           onTrackClick={removeTrackFromPlaylist}
         />
-        <input onChange={(e)=>setPlaylistName(e.target.value)} type="text" value={playlistName} />
+        <input className={styles.playlistName} onChange={(e)=>setPlaylistName(e.target.value)} type="text" value={playlistName} />
         <button onClick={()=>SpotifyAPI.createPlaylist(playlistName, playlistTracks)}>
           Save Playlist
         </button>
